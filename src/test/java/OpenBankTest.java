@@ -10,6 +10,7 @@ import static org.testng.Assert.*;
 public class OpenBankTest {
 
     String BASE_URI = "https://reqres.in";
+    String USER_URI = "/api/users";
 
     @Test
     public void checkResponseWithAssertTest() {
@@ -18,7 +19,7 @@ public class OpenBankTest {
                 .log().everything()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/users?page=2")
+                .get(USER_URI + "?page=2")
                 .then()
                 .extract()
                 .body().as(User.class);
@@ -50,7 +51,7 @@ public class OpenBankTest {
                 .log().everything()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/api/users?page=3")
+                .get(USER_URI + "?page=2")
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("JsonSchemaFile.json"));
@@ -60,11 +61,11 @@ public class OpenBankTest {
     @Test
     public void checkCreatedUserTest() {
         given()
-                .baseUri("https://reqres.in")
+                .baseUri(BASE_URI)
                 .log().everything()
                 .contentType(ContentType.JSON)
                 .when()
-                .post("api/users")
+                .post(USER_URI)
                 .then()
                 .statusCode(201)
                 .assertThat()
@@ -82,7 +83,7 @@ public class OpenBankTest {
                 .contentType(ContentType.JSON)
                 .body(ur)
                 .when()
-                .post("api/users")
+                .post(USER_URI)
                 .then()
                 .statusCode(201)
                 .extract()
