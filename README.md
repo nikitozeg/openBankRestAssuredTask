@@ -1,0 +1,2 @@
+# openBankRestAssuredTask
+test task
